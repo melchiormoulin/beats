@@ -312,6 +312,10 @@ func createEventBulkMeta(
 	}
 
 	index, err := indexSel.Select(event)
+	if index == "" {
+		err := fmt.Errorf("generate empty elasticsearch index for this event %v", event)
+		return nil, err
+	}
 	if err != nil {
 		err := fmt.Errorf("failed to select event index: %v", err)
 		return nil, err
